@@ -57,7 +57,7 @@ def vote_servey(select_food):
 # 프로그램 실행
 def program_run():
     while True:
-        print('★좋아하는 음식 종류 설문조사★')
+        print('★ 좋아하는 음식 종류 설문조사★')
         print('1. 설문 참여하기')
         print('2. 설문 현황보기')
         select:int

@@ -50,8 +50,8 @@ def get_serveys() -> list[vo.FOOD]:
             for item in items:
                 food = vo.FOOD(item[0],item[1],vo.VOTE(item[2]))
                 food_serveys.append(food)
-    except:
-        print('get_serveys Error!')
+    except Exception as msg:
+        print('get_serveys Error!', msg)
     finally:
         conn.close()
     
