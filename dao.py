@@ -9,7 +9,7 @@ def get_connection() -> pymysql.Connection:
     )
     return conn
 
-def init_db():
+def init_db(data: list | None = None):
     
     conn = get_connection()
     
@@ -24,11 +24,23 @@ def init_db():
             )
             '''
             cur.execute(sql)
-            sql = '''
-            INSERT INTO food_serveys (food)
-            VALUES ('한식'), ('중식'), ('일식'), ('양식')
-            '''
-            cur.execute(sql)
+            
+            if data is None:
+                sql = '''
+                INSERT INTO food_serveys (food)
+                VALUES ('한식'), ('중식'), ('일식'), ('양식')
+                '''
+                cur.execute(sql)
+            else :
+                sql = '''
+                INSERT INTO food_serveys (food, vote)
+                VALUES (%s, %s)
+                '''
+                serveys = [vo.FOOD(**food) for food in data]
+                foods = []
+                for food in serveys:
+                    foods.append((food.name, food.vote['_count']))
+                cur.executemany(sql, foods)
             
             conn.commit()
     except Exception as msg:

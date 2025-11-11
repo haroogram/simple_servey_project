@@ -1,44 +1,53 @@
+from dataclasses import dataclass
 
+@dataclass
 class VOTE:
     
-    def __init__(self, count: int=0):
-        self.__count:int = count
+    _count: int = 0
+    
+    # def __init__(self, count: int=0):
+        # self.__count:int = count
     
     @property
     def count(self):
-        return self.__count
+        return self._count
     
     @count.setter
     def count(self, count):
-        self.__count = count
+        self._count = count
 
+@dataclass
 class FOOD:
     
-    def __init__(self, id: int, name: str | None = None, vote: VOTE | None = None):
-        self.__id = id
-        self.__name = name
-        self.__vote: VOTE = vote
+    _id: int
+    _name: str | None = None
+    _vote: VOTE | None = None
+    
+    # def __init__(self, id: int, name: str | None = None, vote: VOTE | None = None):
+    #     self.__id = id
+    #     self.__name = name
+    #     self.__vote: VOTE = vote
         
     @property
     def id(self):
-        return self.__id
+        return self._id
     
     @id.setter
     def id(self, id):
-        self.__id = id
+        self._id = id
         
     @property
     def name(self):
-        return self.__name
+        return self._name
 
     @name.setter
     def name(self, name):
-        self.__name = name
+        self._name = name
 
     @property
     def vote(self):
-        return self.__vote
+        return self._vote
 
     @vote.setter
     def vote(self, vote):
-        self.__vote = vote
+        self._vote = vote

@@ -1,4 +1,4 @@
-import dao
+import dao, util
 
 # 설문 현황
 def show_servey():
@@ -73,8 +73,20 @@ def program_run():
                 case 2: 
                     show_servey()
                 case 999: 
-                    print('임의 종료')
+                    print('사용자 종료')
                     break
-
+    util.save_file(dao.get_serveys())
+                
 def init_db():
-    dao.init_db()
+    
+    try:
+        isNew = True if int(input('1. 새로시작\n2. 불러오기\n')) == 1 else False
+    except Exception as msg:
+        print('init_db Error!', msg)
+        raise Exception('init_db 입력 오류...프로그램 종료.')
+    else:
+        if isNew:
+            dao.init_db()
+        else :
+            data = util.load_file()
+            dao.init_db(data)
