@@ -19,31 +19,30 @@ def participate_servey():
         select = int(input('선택: '))
     except Exception as msg:
         print('participate_servey Error!', msg)
-        return False
-    
-    if select != 0 :
-        select_food = None
-        for idx, food in enumerate(serveys, start=1):
-            if idx == select :
-                # print(food.id, food.name, food.vote.count)
-                select_food = food
-        
-        if select_food is None :
-            print('없는 음식입니다.')
-        else :
-            vote_servey(select_food)
     else:
-        food_name = input('음식 종류 입력: ')
-        
-        result = dao.insert_servey(food_name)
-        
-        if result > 0:
-            print('등록되었습니다.')
-            food.name = food_name
-            food.vote.count = 0
-            dao.update_servey(food)
+        if select != 0 :
+            select_food = None
+            for idx, food in enumerate(serveys, start=1):
+                if idx == select :
+                    # print(food.id, food.name, food.vote.count)
+                    select_food = food
+            
+            if select_food is None :
+                print('없는 음식입니다.')
+            else :
+                vote_servey(select_food)
         else:
-            print('등록 실패')
+            food_name = input('음식 종류 입력: ')
+            
+            result = dao.insert_servey(food_name)
+            
+            if result > 0:
+                print('등록되었습니다.')
+                food.name = food_name
+                food.vote.count = 0
+                dao.update_servey(food)
+            else:
+                print('등록 실패')
             
 # 설문 투표
 def vote_servey(select_food):
@@ -58,7 +57,7 @@ def vote_servey(select_food):
 # 프로그램 실행
 def program_run():
     while True:
-        print('좋아하는 음식 종류 설문조사')
+        print('★좋아하는 음식 종류 설문조사★')
         print('1. 설문 참여하기')
         print('2. 설문 현황보기')
         select:int
@@ -77,3 +76,5 @@ def program_run():
                     print('임의 종료')
                     break
 
+def init_db():
+    dao.init_db()

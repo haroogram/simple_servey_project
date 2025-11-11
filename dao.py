@@ -9,6 +9,34 @@ def get_connection() -> pymysql.Connection:
     )
     return conn
 
+def init_db():
+    
+    conn = get_connection()
+    
+    try:
+        with conn.cursor() as cur:
+            cur.execute("DROP TABLE IF EXISTS food_serveys")
+            sql = '''
+            CREATE TABLE food_serveys(
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                food VARCHAR(20) UNIQUE NOT NULL,
+                vote INT DEFAULT 0
+            )
+            '''
+            cur.execute(sql)
+            sql = '''
+            INSERT INTO food_serveys (food)
+            VALUES ('한식'), ('중식'), ('일식'), ('양식')
+            '''
+            cur.execute(sql)
+            
+            conn.commit()
+    except Exception as msg:
+        print('init_db Error!', msg)
+        raise Exception('DB 초기화 실패...프로그램 종료.')
+    finally:
+        conn.close()
+
 def get_serveys() -> list[vo.FOOD]:
     
     conn = get_connection()
