@@ -18,10 +18,13 @@ def save_file(serveys: list):
 def load_file():
 
     file_name = datetime.now().strftime('%y%m%d')
+    data = None
+    try:
+        with open(f'{SAVE_DIR}/{file_name}','r', encoding='utf8') as file:
+            data = json.load(file)
+    except Exception as msg:
+        print('load_file Error!', msg)
         
-    with open(f'{SAVE_DIR}/{file_name}','r', encoding='utf8') as file:
-        data = json.load(file)
-    
     return data
 
         
